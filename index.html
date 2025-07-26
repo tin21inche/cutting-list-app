@@ -1,0 +1,67 @@
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+export default function CuttingListApp() {
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+
+  const calc = {
+    doubleJamb: height,
+    doubleHeader: width - 27,
+    doubleSill: width - 27,
+    topBottomRail: width / 2 - 65.5,
+    lockstile: height - 46,
+    interlocker: height - 46,
+    screenFrame: height - 48,
+    glassWidth: width / 2 - 72,
+    glassHeight: height - 123,
+  };  
+
+  return (
+    <div className="max-w-4xl mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-4">Cutting List Generator</h1>
+
+      <div className="grid grid-cols-2 gap-4 mb-6">
+        <div>
+          <Label htmlFor="width">Width (mm)</Label>
+          <Input
+            id="width"
+            type="number"
+            value={width}
+            onChange={(e) => setWidth(parseFloat(e.target.value))}
+          />
+        </div>
+        <div>
+          <Label htmlFor="height">Height (mm)</Label>
+          <Input
+            id="height"    
+            type="number"
+            value={height}
+            onChange={(e) => setHeight(parseFloat(e.target.value))}
+          />
+        </div> 
+      </div>
+
+      <Card>
+        <CardContent className="p-4">
+          <h2 className="text-xl font-semibold mb-2">Cutting List</h2>
+          <ul className="space-y-2">
+            <li>Double Jamb (2 pcs): {calc.doubleJamb} mm</li>
+            <li>Double Header (1 pc): {calc.doubleHeader} mm</li>
+            <li>Double Sill (1 pc): {calc.doubleSill} mm</li>
+            <li>Top/Bottom Rail (4 pcs): {calc.topBottomRail} mm</li>
+            <li>Lockstile (2 pcs): {calc.lockstile} mm</li>
+            <li>Interlocker (2 pcs): {calc.interlocker} mm</li>
+            <li>Screen Frame (2 pcs): {calc.screenFrame} mm</li>
+            <li>Glass (2 pcs): {calc.glassWidth} mm × {calc.glassHeight} mm</li>
+            <li>Center Lock: 1 set</li>
+            <li>Rollers: 4 pcs</li>
+            <li>4 Accessory Types: 2 sets each</li>
+          </ul>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
